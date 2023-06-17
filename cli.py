@@ -1,18 +1,10 @@
 import time
+from function import openfile,writeline
 now=time.strftime("%b %Y, %H:%M:%S")
 print("It is",now)
 
 print("Welcome to the list\n ")
 
-
-def openfile():
-    with open("file.txt",'r') as file:
-        file=file.readlines()
-        return file
-
-def writeline(toenter):
-    with open("file.txt",'w') as file:
-         file.writelines(toenter)
 
 
 items=[]
