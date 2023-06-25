@@ -11,30 +11,30 @@ list_box=py.Listbox(values=function.openfile(),key='todos',enable_events=True,si
 button=py.Button("Add")
 compelte=py.Button('Complete')
 edit=py.Button("Edit")
+exit=py.Button("Exit")
 #Layout window
-window=py.Window('App',layout=[[label],[input_box,button],[compelte,list_box,edit]]
+window=py.Window('App',layout=[[label],[input_box,button],[compelte,list_box,edit],[exit]]
                  ,font=('Times new roman',20))
 
 
 while True:
 
     value=window.read()
-    window['todo'].update(value[1]['todos'][0])
     print(value)
-
 
     if value[0] == 'Add':
         file_value = function.openfile()
         file_value.append((value[1]['todo'])+'\n')
         function.writeline(file_value)
+        window['todos'].update(file_value)
+
     elif value[0] == 'Complete':
-        try:
-            num = int(value[1]['todo'])
-            vari = function.openfile()
-            vari.pop(num - 1)
-            function.writeline(vari)
-        except IndexError:
-            print("This line does not exsist")
+        to_remove = value[1]['todos'][0]
+        vari = function.openfile()
+        vari.remove(to_remove)
+        function.writeline(vari)
+        window['todos'].update(values=vari)
+        window['todo'].update(value='')
 
     elif value[0] == 'Edit':
 
@@ -45,6 +45,12 @@ while True:
             values[index]=new_todo
             function.writeline(values)
             window['todos'].update(values=values)
+
+    elif value[0]=='todos' :
+      window['todo'].update(value[1]['todos'][0])
+
+    elif value[0]=='Exit':
+        break
 
 
 
