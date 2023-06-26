@@ -1,10 +1,12 @@
 import function
 import PySimpleGUI as py
 import time
+import os
 
 
-
-
+if not os.path.exists("file.txt"):
+    with open("file.txt",'w') as file:
+        pass
 label=py.Text("To-do-list")
 labels=py.Text("",key="Clock")
 #Input box
